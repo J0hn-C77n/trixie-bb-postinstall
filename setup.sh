@@ -57,6 +57,8 @@ apt_packages=(
   "gh" # The official GitHub CLI, useful for interacting with code repositories.
   "jq" # A command-line JSON processor, essential for handling tool output.
   "wafw00f" # A cli tool to identify WAF of a web application.
+  "proxychains4" # Tool for redirecting your connection throught a list of proxies.
+  "recon-ng" # Powerfull framework for recon of your target.
 
   # --- Java Development ---
   "openjdk-25-jre" # Java Runtime Environment (runs Java apps).
