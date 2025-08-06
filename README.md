@@ -55,5 +55,24 @@ chmod u+x setup.sh
 sudo ./setup.sh
 ```
 
+---
+After execution of this script you can use Xpra. There's a script for starting zap through xpra in case if your machine is just a server with attack capabilities.
+
+```
+wget https://github.com/J0hn-C77n/trixie-bb-postinstall/raw/refs/heads/main/startzap.sh
+chmod u+x startzap.sh
+./startzap.sh
+```
+This is the way to simply start zap in a headeless GUI session
+
+If you want to start something else:
+
+`xpra start` {screen number e.g. `:2`} `--start={command}` or `--start-child={command}`
+```
+xpra start :200 --start=firefox
+```
+
+note that xpra doesn't have autocompletion in my build but it's going to be added soon
+
 Disclaimer
 This script performs system-level changes and is provided "as-is" without warranty. Please review the contents of the script to understand its functionality before running it. Use at your own risk.
