@@ -59,6 +59,7 @@ apt_packages=(
   "wafw00f" # A cli tool to identify WAF of a web application.
   "proxychains4" # Tool for redirecting your connection throught a list of proxies.
   "recon-ng" # Powerfull framework for recon of your target.
+  "aircrack-ng" # Wi-Fi security suite that let you intercept handshake and attack wpa2 hashes
 
   # --- Java Development ---
   "openjdk-25-jre" # Java Runtime Environment (runs Java apps).
