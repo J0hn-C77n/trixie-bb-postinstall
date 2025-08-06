@@ -27,8 +27,7 @@ Designed with flexibility in mind, it supports both headless server deployments 
 Two methods are provided for installation. The git clone method is recommended for security and transparency.
 
 ### Recommended Method: Git Clone
-Cloning the repository allows you to review the script's contents before execution—a crucial security best practice.
-Bash
+Cloning the repository allows you to review the script's contents before execution.
 ```
 # Clone the repository
 git clone https://github.com/J0hn-C77n/trixie-bb-postinstall.git
@@ -45,7 +44,6 @@ sudo ./setup.sh
 
 ### Alternative Method: Direct Download
 For rapid deployment on disposable systems, you may download and run the script directly.
-Bash
 ```
 # Download the installation script
 wget https://github.com/J0hn-C77n/trixie-bb-postinstall/raw/main/setup.sh
