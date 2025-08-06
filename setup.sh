@@ -50,6 +50,7 @@ apt_packages=(
   "fastfetch"  # A fast tool to display system information with a logo.
   "openresolv" # A framework for managing DNS information (resolv.conf).
   "nmap"       # Powerful network scanner for security auditing and discovery.
+  "zenmap"     # A GUI for nmap if you need to see all the hosts and ports after scan.
   "openvpn"    # A robust and configurable VPN (Virtual Private Network) client/server.
   "wireguard"  # A modern, fast, and secure VPN protocol.
 
