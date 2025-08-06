@@ -55,6 +55,7 @@ apt_packages=(
   "zenmap"     # A GUI for nmap if you need to see all the hosts and ports after scan.
   "openvpn"    # A robust and configurable VPN (Virtual Private Network) client/server.
   "wireguard"  # A modern, fast, and secure VPN protocol.
+  "openconnect" # A cisco VPN client.
 
   # --- Security & CLI Tools ---
   "gh" # The official GitHub CLI, useful for interacting with code repositories.
