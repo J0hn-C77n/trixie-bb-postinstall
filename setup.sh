@@ -35,8 +35,8 @@ apt_packages=(
   "wget"	   # Non-interactive netwrok downloader.
   "net-tools"	   # Pack of networking tools such as arp.
   "glow"	   # A good terminal md and code reader.
-  "Firefox"  # Browser for crawling in zap.
-  "Chromium" # Browser fro crawling in zap.
+  "firefox"  # Browser for crawling in zap.
+  "chromium" # Browser fro crawling in zap.
 
   # --- Desktop & GUI Applications ---
   "flatpak"                             # A system for building, distributing, and running sandboxed desktop apps.
