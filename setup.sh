@@ -35,6 +35,8 @@ apt_packages=(
   "wget"	   # Non-interactive netwrok downloader.
   "net-tools"	   # Pack of networking tools such as arp.
   "glow"	   # A good terminal md and code reader.
+  "firefox-esr"  # Browser for crawling in zap.
+  "chromium" # Browser fro crawling in zap.
 
   # --- Desktop & GUI Applications ---
   "flatpak"                             # A system for building, distributing, and running sandboxed desktop apps.
@@ -50,8 +52,10 @@ apt_packages=(
   "fastfetch"  # A fast tool to display system information with a logo.
   "openresolv" # A framework for managing DNS information (resolv.conf).
   "nmap"       # Powerful network scanner for security auditing and discovery.
+  "zenmap"     # A GUI for nmap if you need to see all the hosts and ports after scan.
   "openvpn"    # A robust and configurable VPN (Virtual Private Network) client/server.
   "wireguard"  # A modern, fast, and secure VPN protocol.
+  "openconnect" # A cisco VPN client.
 
   # --- Security & CLI Tools ---
   "gh" # The official GitHub CLI, useful for interacting with code repositories.
