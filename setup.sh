@@ -67,6 +67,14 @@ apt_packages=(
   
   # --- Python packages ---
   "python3-setuptools" # Setup utilities for python3.
+
+  # --- Dependencies ---
+  "autoconf" # Dependency for amass
+  "make" # Dependency for amass
+  "automake" # Dependency for amass
+  "libtool" # Dependency for amass
+  "pkg-config" # Dependency for amass
+
 )
 apt_custom_packages=(
   "zap" # The OWASP ZAP proxy for web app security testing (from a custom repo).
@@ -81,12 +89,19 @@ gnome_extensions=(
 
 # Go-based tools to install using 'go install'
 go_tools=(
-  "github.com/OWASP/Amass/v4/...@master"                          # In-depth attack surface mapping and asset discovery.
+  "github.com/owasp-amass/amass/v5/cmd/amass@main"                # In-depth attack surface mapping and asset discovery.
   "github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest" # A fast passive subdomain discovery tool.
   "github.com/projectdiscovery/katana/cmd/katana@latest"          # A next-generation crawling and spidering framework.
   "github.com/projectdiscovery/httpx/cmd/httpx@latest"            # A fast and multi-purpose HTTP toolkit.
   "github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest"       # Powerful vulnerability scanner based on templates.
-  "github.com/gitleaks/gitleaks/v8@latest"                        # Scans git repositories for hardcoded secrets.
+)
+
+installed_packages=(
+  "amass"
+  "subfinder"
+  "katana"
+  "httpx"
+  "nuclei"
 )
 
 # --- Script Logic ---
@@ -185,6 +200,12 @@ if command go install -v "${go_tools[@]}" &>/dev/null; then
   echo "seems like go tools have been installed already. Skipping..."
 fi
 
+echo ""
+echo ""
+echo ""
+echo ""
+echo "Checking tools"
+if command 
 # 9. Add Go binary directory to the user's PATH in .profile
 echo ""
 echo ""
