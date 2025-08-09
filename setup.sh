@@ -129,7 +129,7 @@ Types: deb deb-src
 URIs: http://deb.debian.org/debian/
 Suites: trixie-updates
 Components: main contrib non-free non-free-firmware
-Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg" | sudo tee -a /etc/apt/sources.list.d/debian.sources && sudo rm -f /etc/apt/source.list # Needed to kill all of the dummy repositories that may be left after installation
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg" | sudo tee /etc/apt/sources.list.d/debian.sources && sudo rm -f /etc/apt/source.list # Needed to kill all of the dummy repositories that may be left after installation
 
 # Install packages from APT to satisfy all of the packages that will be used further in the code (e.g. curl, git...)
 echo ""
