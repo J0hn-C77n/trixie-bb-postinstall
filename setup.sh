@@ -110,11 +110,29 @@ installed_packages=(
 
 # --- Script Logic ---
 
-# 1. Update package lists
-echo "Updating package lists..."
-sudo apt update
+# Adding repositories
+# Adding debian modernized repository
+echo "Adding debian sources"
+echo "Types: deb deb-src
+URIs: http://deb.debian.org/debian/
+Suites: trixie
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
-# 2. Install packages from APT
+Types: deb deb-src
+URIs: http://security.debian.org/debian-security/
+Suites: trixie-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb deb-src
+URIs: http://deb.debian.org/debian/
+Suites: trixie-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg" | sudo tee -a /etc/apt/sources.list.d/debian.sources 
+sudo rm -f /etc/apt/source.list # Needed to kill all of the dummy repositories that may be left after installation
+
+# Install packages from APT to satisfy all of the packages that will be used further in the code (e.g. curl, git...)
 echo ""
 echo ""
 echo ""
@@ -122,27 +140,18 @@ echo ""
 echo "Installing APT packages..."
 sudo apt install -y "${apt_packages[@]}"
 
-# 3. Fully upgrade the system
+# Adding xpra repository from github
 echo ""
 echo ""
 echo ""
 echo ""
-echo "Fully upgrading system..."
-sudo apt full-upgrade -y
+echo "Adding xpra repository..."
+git clone https://github.com/Xpra-org/xpra
+cd xpra
+./setup.py install-repo
+cd ..
 
-# Check for and run modernize-sources if it exists
-echo ""
-echo ""
-echo ""
-echo ""
-if command -v apt modernize-sources &>/dev/null; then
-  echo "Found 'apt modernize-sources'. Running it..."
-  sudo apt modernize-sources -y
-else
-  echo "INFO: 'apt modernize-sources' command not found. Skipping."
-fi
-
-# 4. Add Custom APT Repository for ZAP (Modernized)
+# Add Custom APT Repository for ZAP (Modernized)
 echo ""
 echo ""
 echo ""
@@ -157,33 +166,41 @@ Components:
 Signed-By: /etc/apt/keyrings/home_cabelo-debian_testing.gpg
 " | sudo tee /etc/apt/sources.list.d/home:cabelo.sources
 
+# Check for and run modernize-sources if it exists
 echo ""
 echo ""
 echo ""
 echo ""
-echo "Adding xpra repository..."
-git clone https://github.com/Xpra-org/xpra
-cd xpra
-./setup.py install-repo
-cd ..
+if command -v apt modernize-sources &>/dev/null; then
+  echo "Found 'apt modernize-sources'. Running it..."
+  sudo apt modernize-sources -y
+else
+  echo "INFO: 'apt modernize-sources' command not found. Skipping."
+fi
 
-# 5. Upgrading after adding custom repository
-echo ""
-echo ""
-echo ""
-echo ""
-echo "updating once again..."
+
+# Update package lists
+echo "Updating package lists..."
 sudo apt update
 
-# 6. Installing things from custom repository
+# Fully upgrade the system
+echo ""
+echo ""
+echo ""
+echo ""
+echo "Fully upgrading system..."
+sudo apt full-upgrade -y
+
+
+# Installing things from custom repository
 echo ""
 echo ""
 echo ""
 echo ""
 echo "Installing custom packages..."
-sudo apt install -y "${apt_custom_packages}"
+sudo apt install -y "${apt_custom_packages[@]}"
 
-# 7. Add Flathub repository
+# Add Flathub repository
 echo ""
 echo ""
 echo ""
@@ -191,7 +208,7 @@ echo ""
 echo "Adding Flathub repository..."
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo >/dev/null
 
-# 8. Install Go-based security tools
+# Install Go-based security tools
 echo ""
 echo ""
 echo ""
@@ -210,7 +227,7 @@ echo ""
 echo ""
 echo "Checking tools"
 if command 
-# 9. Add Go binary directory to the user's PATH in .profile
+# Add Go binary directory to the user's PATH in .profile
 echo ""
 echo ""
 echo ""
@@ -228,7 +245,7 @@ echo -e "\n# Add Go binaries to PATH\nexport PATH=\"\$HOME/go/bin:\$PATH\"" >>"$
 # ###  to file and invoked with sudo somehow ###
 # ###  Time To Think...                      ###
 # ==============================================
-# 10. Enable GNOME Shell Extensions
+# Enable GNOME Shell Extensions
 #echo "Enabling GNOME extensions..."
 # This must run as the user, not root. $SUDO_USER refers to the user who ran sudo.
 #for extension in "${gnome_extensions[@]}"; do
@@ -236,7 +253,7 @@ echo -e "\n# Add Go binaries to PATH\nexport PATH=\"\$HOME/go/bin:\$PATH\"" >>"$
 #  gnome-extensions enable "$extension"
 #done
 
-# 11. Clean up
+# Clean up
 echo ""
 echo ""
 echo ""
@@ -244,7 +261,7 @@ echo ""
 echo "Cleaning up unused packages..."
 sudo apt autoremove -y
 
-# 12. Updating and full-upgrading in case there's something unused
+# Updating and full-upgrading in case there's something unused
 echo ""
 echo ""
 echo ""
@@ -255,7 +272,7 @@ echo "--------------------------------------------------"
 echo "✅ Setup complete!"
 echo "--------------------------------------------------"
 
-# 12. Ask user to reboot
+# Ask user to reboot
 read -p "A reboot is required for all changes to take effect. Reboot now? [Y/n] " -n 1 -r
 echo # Move to a new line
 if [[ $REPLY =~ ^[Yy]$ || $REPLY == "" ]]; then
