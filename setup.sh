@@ -220,12 +220,6 @@ if command go install -v "${go_tools[@]}" &>/dev/null; then
   echo "seems like go tools have been installed already. Skipping..."
 fi
 
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Checking tools"
-if command 
 # Add Go binary directory to the user's PATH in .profile
 echo ""
 echo ""
