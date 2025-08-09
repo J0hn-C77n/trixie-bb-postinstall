@@ -39,7 +39,7 @@ cd trixie-bb-postinstall
 chmod u+x setup.sh
 
 # Execute the script with root privileges
-sudo ./setup.sh
+./setup.sh
 ```
 
 ### Alternative Method: Direct Download
@@ -52,7 +52,7 @@ wget https://github.com/J0hn-C77n/trixie-bb-postinstall/raw/main/setup.sh
 chmod u+x setup.sh
 
 # Execute the script with root privileges
-sudo ./setup.sh
+./setup.sh
 ```
 
 ---
