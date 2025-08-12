@@ -2,24 +2,21 @@
 
 # Exit immediately if a command exits with a non-zero status.
 # This is a safety measure to ensure the script stops if any step fails.
-set -e
+ set -e
 
 # --- Application Lists ---
 
 # Packages for personal deployment
-personal_packages_apt=(
-  "gnome-boxes"
+docker_packages_apt=(
   "docker.io"
   "docker-compose"
 )
 
-personal_packages_flatpak=(
-  "org.telegram.desktop"
-  "me.proton.Pass"
-  "me.proton.Mail"
-  "com.proton.www"
+flatpak_packages=(
   "me.iepure.devtoolbox"
   "app.zen_browser.zen"
+  "org.keepassxc.KeePassXC"
+  "md.obsidian.Obsidian"
 )
 
 # Packages to be installed from the Debian APT repository
@@ -100,14 +97,6 @@ go_tools=(
   "github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest"       # Powerful vulnerability scanner based on templates.
 )
 
-installed_packages=(
-  "amass"
-  "subfinder"
-  "katana"
-  "httpx"
-  "nuclei"
-)
-
 # --- Script Logic ---
 
 # Adding repositories
@@ -138,6 +127,18 @@ echo ""
 echo ""
 echo "Installing APT packages..."
 sudo apt install -y "${apt_packages[@]}"
+
+echo ""
+echo ""
+echo ""
+echo ""
+echo "Clonning wordlists"
+sudo mkdir /opt/wordlists -p
+sudo mkdir /opt/tools -p # This directory is here for future use. Thinking of adding exploit-db
+sudo chown $USER:$USER /opt/*
+cd /opt/wordlists/ && git clone https://github.com/danielmiessler/SecLists.git &
+cd /opt/wordlists/ && git clone https://github.com/the-xentropy/samlists.git & 
+
 
 # Adding xpra repository from github
 echo ""
@@ -197,15 +198,28 @@ echo ""
 echo ""
 echo ""
 echo "Installing custom packages..."
-sudo apt install -y "${apt_custom_packages[@]}"
+sudo apt install -y "${apt_custom_packages[@]}" 
 
+echo ""
+echo ""
+echo ""
+echo ""
+echo "Installing docker packages..."
+sudo apt install -y "${docker_packages_apt}"
 # Add Flathub repository
 echo ""
 echo ""
 echo ""
 echo ""
 echo "Adding Flathub repository..."
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo >/dev/null
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+#echo ""
+#echo ""
+#echo ""
+#echo ""
+#echo "Installing flatpak packages..."
+#sudo flatpak install -y "${flatpack_packages[@]}"
 
 # Install Go-based security tools
 echo ""
@@ -220,15 +234,6 @@ if command go install -v "${go_tools[@]}" &>/dev/null; then
   echo "seems like go tools have been installed already. Skipping..."
 fi
 
-# Add Go binary directory to the user's PATH in .profile
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Adding Go binary path to ~/.profile..."
-# This ensures the tools are available in the terminal after the next login.
-# We use sudo -u to run this as the user, not as root.
-echo -e "\n# Add Go binaries to PATH\nexport PATH=\"\$HOME/go/bin:\$PATH\"" >>"$HOME/.profile"
 
 # ==============================================
 # ###                 NOTE                   ###
