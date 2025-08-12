@@ -118,7 +118,7 @@ Types: deb deb-src
 URIs: http://deb.debian.org/debian/
 Suites: trixie-updates
 Components: main contrib non-free non-free-firmware
-Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg" | sudo tee /etc/apt/sources.list.d/debian.sources; sudo rm -f /etc/apt/source.list # Needed to kill all of the dummy repositories that may be left after installation
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg" | sudo tee /etc/apt/sources.list.d/debian.sources && sudo rm -f /etc/apt/source.list # Needed to kill all of the dummy repositories that may be left after installation
 
 # Install packages from APT to satisfy all of the packages that will be used further in the code (e.g. curl, git...)
 echo ""
@@ -136,8 +136,8 @@ echo "Clonning wordlists"
 sudo mkdir /opt/wordlists -p
 sudo mkdir /opt/tools -p # This directory is here for future use. Thinking of adding exploit-db
 sudo chown $USER:$USER /opt/*
-cd /opt/wordlists/ && git clone https://github.com/danielmiessler/SecLists.git & > /dev/null 
-cd /opt/wordlists/ && git clone https://github.com/the-xentropy/samlists.git &  >/dev/null
+cd /opt/wordlists/ && git clone https://github.com/danielmiessler/SecLists.git &
+cd /opt/wordlists/ && git clone https://github.com/the-xentropy/samlists.git & 
 
 
 # Adding xpra repository from github
@@ -214,12 +214,12 @@ echo ""
 echo "Adding Flathub repository..."
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Installing flatpak packages..."
-sudo flatpak install -y "${flatpack_packages[@]}"
+#echo ""
+#echo ""
+#echo ""
+#echo ""
+#echo "Installing flatpak packages..."
+#sudo flatpak install -y "${flatpack_packages[@]}"
 
 # Install Go-based security tools
 echo ""
